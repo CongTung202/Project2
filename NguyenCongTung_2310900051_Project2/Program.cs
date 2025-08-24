@@ -27,6 +27,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=SanPhams}/{action=Index}/{id?}");
+    pattern: "{controller=LoaiSanPhams}/{action=Index}/{id?}");
 
 app.Run();

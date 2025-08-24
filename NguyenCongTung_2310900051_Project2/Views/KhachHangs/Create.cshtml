@@ -1,0 +1,59 @@
+﻿@model NguyenCongTung_2310900051_Project2.Models.KhachHang
+
+@{
+    Layout = "_LayoutAdmin";
+    ViewData["Title"] = "Thêm khách hàng";
+}
+
+<div class="container mt-4">
+    <div class="card shadow-sm rounded-3">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0"><i class="bi bi-person-plus-fill"></i> @ViewData["Title"]</h4>
+        </div>
+        <div class="card-body">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                <div class="mb-3">
+                    <label asp-for="MaKhachHang" class="form-label"></label>
+                    <input asp-for="MaKhachHang" class="form-control" placeholder="Nhập mã khách hàng..." />
+                    <span asp-validation-for="MaKhachHang" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="HoTen" class="form-label"></label>
+                    <input asp-for="HoTen" class="form-control" placeholder="Nhập họ tên..." />
+                    <span asp-validation-for="HoTen" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Email" class="form-label"></label>
+                    <input asp-for="Email" class="form-control" placeholder="example@email.com" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="DienThoai" class="form-label"></label>
+                    <input asp-for="DienThoai" class="form-control" placeholder="Số điện thoại..." />
+                    <span asp-validation-for="DienThoai" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="DiaChi" class="form-label"></label>
+                    <input asp-for="DiaChi" class="form-control" placeholder="Nhập địa chỉ..." />
+                    <span asp-validation-for="DiaChi" class="text-danger"></span>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <a asp-action="Index" class="btn btn-secondary">
+                        <i class="bi bi-arrow-left-circle"></i> Hủy
+                    </a>
+                    <button type="submit" class="btn btn-success">
+                        <i class="bi bi-save"></i> Lưu
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

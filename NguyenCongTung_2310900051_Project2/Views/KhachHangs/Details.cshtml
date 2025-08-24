@@ -1,0 +1,40 @@
+﻿@model NguyenCongTung_2310900051_Project2.Models.KhachHang
+
+@{
+    Layout = "_LayoutAdmin";
+    ViewData["Title"] = "Chi tiết khách hàng";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0">Chi tiết khách hàng</h5>
+                </div>
+                <div class="card-body">
+                    <dl class="row mb-0">
+                        <dt class="col-sm-3 fw-bold">@Html.DisplayNameFor(m => m.MaKhachHang)</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(m => m.MaKhachHang)</dd>
+
+                        <dt class="col-sm-3 fw-bold">@Html.DisplayNameFor(m => m.HoTen)</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(m => m.HoTen)</dd>
+
+                        <dt class="col-sm-3 fw-bold">@Html.DisplayNameFor(m => m.Email)</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(m => m.Email)</dd>
+
+                        <dt class="col-sm-3 fw-bold">@Html.DisplayNameFor(m => m.DienThoai)</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(m => m.DienThoai)</dd>
+
+                        <dt class="col-sm-3 fw-bold">@Html.DisplayNameFor(m => m.DiaChi)</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(m => m.DiaChi)</dd>
+                    </dl>
+                </div>
+                <div class="card-footer text-end">
+                    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-warning me-2">Chỉnh sửa</a>
+                    <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

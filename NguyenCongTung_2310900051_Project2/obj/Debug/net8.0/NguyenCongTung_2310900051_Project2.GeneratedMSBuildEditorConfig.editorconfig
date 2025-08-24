@@ -36,24 +36,64 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[B:/NguyenCongTung_2310900051_Project2/NguyenCongTung_2310900051_Project2/Views/SanPhams/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2FuUGhhbXNcQ3JlYXRlLmNzaHRtbA==
+[B:/NguyenCongTung_2310900051_Project2/NguyenCongTung_2310900051_Project2/Views/KhachHangs/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcS2hhY2hIYW5nc1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[B:/NguyenCongTung_2310900051_Project2/NguyenCongTung_2310900051_Project2/Views/SanPhams/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2FuUGhhbXNcRGVsZXRlLmNzaHRtbA==
+[B:/NguyenCongTung_2310900051_Project2/NguyenCongTung_2310900051_Project2/Views/KhachHangs/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcS2hhY2hIYW5nc1xEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[B:/NguyenCongTung_2310900051_Project2/NguyenCongTung_2310900051_Project2/Views/SanPhams/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2FuUGhhbXNcRGV0YWlscy5jc2h0bWw=
+[B:/NguyenCongTung_2310900051_Project2/NguyenCongTung_2310900051_Project2/Views/KhachHangs/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcS2hhY2hIYW5nc1xEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[B:/NguyenCongTung_2310900051_Project2/NguyenCongTung_2310900051_Project2/Views/SanPhams/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2FuUGhhbXNcRWRpdC5jc2h0bWw=
+[B:/NguyenCongTung_2310900051_Project2/NguyenCongTung_2310900051_Project2/Views/KhachHangs/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcS2hhY2hIYW5nc1xFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[B:/NguyenCongTung_2310900051_Project2/NguyenCongTung_2310900051_Project2/Views/SanPhams/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2FuUGhhbXNcSW5kZXguY3NodG1s
+[B:/NguyenCongTung_2310900051_Project2/NguyenCongTung_2310900051_Project2/Views/KhachHangs/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcS2hhY2hIYW5nc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[B:/NguyenCongTung_2310900051_Project2/NguyenCongTung_2310900051_Project2/Views/LoaiSanPhams/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9haVNhblBoYW1zXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[B:/NguyenCongTung_2310900051_Project2/NguyenCongTung_2310900051_Project2/Views/LoaiSanPhams/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9haVNhblBoYW1zXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[B:/NguyenCongTung_2310900051_Project2/NguyenCongTung_2310900051_Project2/Views/LoaiSanPhams/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9haVNhblBoYW1zXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[B:/NguyenCongTung_2310900051_Project2/NguyenCongTung_2310900051_Project2/Views/LoaiSanPhams/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9haVNhblBoYW1zXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[B:/NguyenCongTung_2310900051_Project2/NguyenCongTung_2310900051_Project2/Views/LoaiSanPhams/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9haVNhblBoYW1zXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[B:/NguyenCongTung_2310900051_Project2/NguyenCongTung_2310900051_Project2/Views/QuanTriViens/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUXVhblRyaVZpZW5zXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[B:/NguyenCongTung_2310900051_Project2/NguyenCongTung_2310900051_Project2/Views/QuanTriViens/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUXVhblRyaVZpZW5zXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[B:/NguyenCongTung_2310900051_Project2/NguyenCongTung_2310900051_Project2/Views/QuanTriViens/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUXVhblRyaVZpZW5zXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[B:/NguyenCongTung_2310900051_Project2/NguyenCongTung_2310900051_Project2/Views/QuanTriViens/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUXVhblRyaVZpZW5zXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[B:/NguyenCongTung_2310900051_Project2/NguyenCongTung_2310900051_Project2/Views/QuanTriViens/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUXVhblRyaVZpZW5zXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [B:/NguyenCongTung_2310900051_Project2/NguyenCongTung_2310900051_Project2/Views/Shared/Error.cshtml]
@@ -78,6 +118,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [B:/NguyenCongTung_2310900051_Project2/NguyenCongTung_2310900051_Project2/Views/Shared/_Navbar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9OYXZiYXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[B:/NguyenCongTung_2310900051_Project2/NguyenCongTung_2310900051_Project2/Views/Shared/_NavbarAdmin.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9OYXZiYXJBZG1pbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [B:/NguyenCongTung_2310900051_Project2/NguyenCongTung_2310900051_Project2/Views/Shared/_SearchBar.cshtml]

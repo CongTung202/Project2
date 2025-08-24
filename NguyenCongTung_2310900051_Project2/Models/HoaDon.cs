@@ -11,23 +11,9 @@ public partial class HoaDon
 
     public string MaKhachHang { get; set; } = null!;
 
-    public DateOnly NgayHoaDon { get; set; }
-
-    public string HoTenKhachHang { get; set; } = null!;
-
-    public string Email { get; set; } = null!;
-
-    public string DienThoai { get; set; } = null!;
-
-    public string DiaChi { get; set; } = null!;
+    public DateOnly? NgayHoaDon { get; set; }
 
     public decimal TongTriGia { get; set; }
-
-    public bool TrangThai { get; set; }
-
-    public DateTime? NgayTao { get; set; }
-
-    public DateTime? NgayCapNhat { get; set; }
 
     public virtual ICollection<ChiTietHoaDon> ChiTietHoaDons { get; set; } = new List<ChiTietHoaDon>();
 

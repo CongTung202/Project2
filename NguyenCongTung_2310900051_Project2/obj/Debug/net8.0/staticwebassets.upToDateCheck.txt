@@ -58,8 +58,3 @@ wwwroot\lib\jquery\dist\jquery.js
 wwwroot\lib\jquery\dist\jquery.min.js
 wwwroot\lib\jquery\dist\jquery.min.map
 wwwroot\lib\jquery\LICENSE.txt
-wwwroot\images\sanpham\325b8fa1-a7f3-40b6-a7dc-ff691b83ea76.png
-wwwroot\images\sanpham\fefa3194-be07-4f43-a61b-859617779664.png
-wwwroot\images\sanpham\13ca42d0-6db2-4174-885b-5f0c1a4f497f.png
-wwwroot\images\sanpham\58e737d4-3c2c-463f-a688-8fc1c45aab10.png
-wwwroot\images\sanpham\8cec20e9-4bea-43fe-9af4-7e90a3982839.png
