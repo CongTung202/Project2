@@ -1,0 +1,64 @@
+﻿@model Project2.Models.HoaDon
+
+@{
+    ViewData["Title"] = "Tạo hóa đơn";
+}
+
+<h2>Tạo mới hóa đơn</h2>
+
+<form id="createForm">
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        <label asp-for="TongTien"></label>
+        <input asp-for="TongTien" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="MaKh"></label>
+        <select asp-for="MaKh" class="form-control" asp-items="ViewBag.MaKh">
+            <option value="">-- Chọn khách hàng --</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="MaSp"></label>
+        <select asp-for="MaSp" class="form-control" asp-items="ViewBag.MaSp">
+            <option value="">-- Chọn sản phẩm --</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Lưu</button>
+</form>
+
+<a asp-action="Index">Quay lại danh sách</a>
+
+@section Scripts {
+    <script>
+        document.getElementById("createForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            let data = {
+                TongTien: parseFloat(document.querySelector("[name='TongTien']").value),
+                MaKh: parseInt(document.querySelector("[name='MaKh']").value) || null,
+                MaSp: parseInt(document.querySelector("[name='MaSp']").value)
+            };
+
+            let response = await fetch('/HoaDons/CreateAjax', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+
+            let result = await response.json();
+            if (result.success) {
+                alert("Thêm hóa đơn thành công!");
+                window.location.href = "/HoaDons/Index";
+            } else {
+                alert("Lỗi: " + result.errors.join(", "));
+            }
+        });
+    </script>
+}

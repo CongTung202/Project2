@@ -1,0 +1,79 @@
+﻿@model Project2.Models.HoaDonEditDto
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form id="editForm">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="MaHd" />
+
+            <div class="form-group">
+                <label asp-for="TongTien" class="control-label"></label>
+                <input asp-for="TongTien" class="form-control" />
+                <span asp-validation-for="TongTien" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="MaKh" class="control-label"></label>
+                <select asp-for="MaKh" class="form-control" asp-items="ViewBag.MaKh"></select>
+                <span asp-validation-for="MaKh" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="MaSp" class="control-label"></label>
+                <select asp-for="MaSp" class="form-control" asp-items="ViewBag.MaSp"></select>
+                <span asp-validation-for="MaSp" class="text-danger"></span>
+            </div>
+
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="TrangThai" /> @Html.DisplayNameFor(model => model.TrangThai)
+                </label>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        $(document).ready(function () {
+            $("#editForm").submit(function (e) {
+                e.preventDefault();
+
+                var form = $(this);
+                $.ajax({
+                    url: '@Url.Action("Edit", "HoaDons")',
+                    type: 'POST',
+                    data: form.serialize(),
+                    success: function (res) {
+                        if (res.success) {
+                            alert(res.message);
+                            window.location.href = '@Url.Action("Index", "HoaDons")';
+                        } else {
+                            alert("Lỗi: " + res.message);
+                        }
+                    },
+                    error: function () {
+                        alert("Có lỗi xảy ra khi gửi dữ liệu!");
+                    }
+                });
+            });
+        });
+    </script>
+}
