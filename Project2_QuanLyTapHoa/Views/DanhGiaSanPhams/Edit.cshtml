@@ -1,0 +1,86 @@
+﻿@model Project2_QuanLyTapHoa.Models.DanhGiaSanPhamDto
+
+@{
+    ViewData["Title"] = "Chỉnh sửa đánh giá sản phẩm";
+}
+
+<h2>Chỉnh sửa đánh giá sản phẩm</h2>
+
+<form id="editForm">
+    <input type="hidden" asp-for="MaDanhGia" />
+
+    <div class="form-group">
+        <label asp-for="MaKh"></label>
+        <select asp-for="MaKh" class="form-control" asp-items="@(ViewData["MaKh"] as SelectList)"></select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="MaSp"></label>
+        <select asp-for="MaSp" class="form-control" asp-items="@(ViewData["MaSp"] as SelectList)"></select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="SoSao"></label>
+        <input asp-for="SoSao" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="NoiDung"></label>
+        <input asp-for="NoiDung" class="form-control" />
+    </div>
+
+    <div class="form-check">
+        <input class="form-check-input" asp-for="LaYeuThich" />
+        <label class="form-check-label" asp-for="LaYeuThich"></label>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="NgayTao"></label>
+        <input asp-for="NgayTao" type="date" class="form-control" />
+    </div>
+
+    <div class="form-check">
+        <input class="form-check-input" asp-for="TrangThai" />
+        <label class="form-check-label" asp-for="TrangThai"></label>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Lưu</button>
+    <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+</form>
+
+@section Scripts {
+    <script>
+        $("#editForm").submit(function (e) {
+            e.preventDefault();
+
+            var formData = {
+                MaDanhGia: $("#MaDanhGia").val(),
+                MaKh: $("#MaKh").val(),
+                MaSp: $("#MaSp").val(),
+                SoSao: $("#SoSao").val(),
+                NoiDung: $("#NoiDung").val(),
+                LaYeuThich: $("#LaYeuThich").is(":checked"),
+                NgayTao: $("#NgayTao").val(),
+                TrangThai: $("#TrangThai").is(":checked")
+            };
+
+            $.ajax({
+                url: '@Url.Action("Edit", "DanhGiaSanPhams")',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(formData),
+                success: function (res) {
+                    if (res.success) {
+                        alert(res.message);
+                        window.location.href = '@Url.Action("Index", "DanhGiaSanPhams")';
+                    } else {
+                        alert("Lỗi: " + res.message);
+                    }
+                },
+                error: function () {
+                    alert("Đã xảy ra lỗi khi gửi yêu cầu.");
+                }
+            });
+        });
+    </script>
+}

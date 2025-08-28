@@ -1,0 +1,70 @@
+﻿@model Project2_QuanLyTapHoa.Models.DanhGiaSanPhamDto
+
+@{
+    ViewData["Title"] = "Tạo đánh giá";
+}
+
+<h2>Tạo Đánh giá Sản phẩm</h2>
+
+<form id="createForm">
+    <div class="form-group">
+        <label asp-for="MaKh"></label>
+        <select asp-for="MaKh" class="form-control" asp-items="ViewBag.MaKh"></select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="MaSp"></label>
+        <select asp-for="MaSp" class="form-control" asp-items="ViewBag.MaSp"></select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="SoSao"></label>
+        <input asp-for="SoSao" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="NoiDung"></label>
+        <textarea asp-for="NoiDung" class="form-control"></textarea>
+    </div>
+
+    <div class="form-group form-check">
+        <input class="form-check-input" asp-for="LaYeuThich" />
+        <label asp-for="LaYeuThich"></label>
+    </div>
+
+    <button type="button" id="btnSave" class="btn btn-primary">Lưu</button>
+    <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+</form>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#btnSave").click(function () {
+                var formData = {
+                    MaKh: $("#MaKh").val(),
+                    MaSp: $("#MaSp").val(),
+                    SoSao: $("#SoSao").val(),
+                    NoiDung: $("#NoiDung").val(),
+                    LaYeuThich: $("#LaYeuThich").is(":checked")
+                };
+
+                $.ajax({
+                    url: '@Url.Action("Create", "DanhGiaSanPhams")',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(formData),
+                    success: function (res) {
+                        if (res.success) {
+                            alert(res.message);
+                            window.location.href = '@Url.Action("Index", "DanhGiaSanPhams")';
+                        }
+                    },
+                    error: function (err) {
+                        alert("Có lỗi xảy ra!");
+                        console.log(err);
+                    }
+                });
+            });
+        });
+    </script>
+}
