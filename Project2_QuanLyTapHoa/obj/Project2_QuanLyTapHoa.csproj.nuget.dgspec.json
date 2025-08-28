@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "B:\\Project2_QuanLyTapHoa\\Project2_QuanLyTapHoa\\Project2_QuanLyTapHoa.csproj": {}
+    "B:\\NguyenCongTung_2310900051_Project2\\Project2_QuanLyTapHoa\\Project2_QuanLyTapHoa.csproj": {}
   },
   "projects": {
-    "B:\\Project2_QuanLyTapHoa\\Project2_QuanLyTapHoa\\Project2_QuanLyTapHoa.csproj": {
+    "B:\\NguyenCongTung_2310900051_Project2\\Project2_QuanLyTapHoa\\Project2_QuanLyTapHoa.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "B:\\Project2_QuanLyTapHoa\\Project2_QuanLyTapHoa\\Project2_QuanLyTapHoa.csproj",
+        "projectUniqueName": "B:\\NguyenCongTung_2310900051_Project2\\Project2_QuanLyTapHoa\\Project2_QuanLyTapHoa.csproj",
         "projectName": "Project2_QuanLyTapHoa",
-        "projectPath": "B:\\Project2_QuanLyTapHoa\\Project2_QuanLyTapHoa\\Project2_QuanLyTapHoa.csproj",
+        "projectPath": "B:\\NguyenCongTung_2310900051_Project2\\Project2_QuanLyTapHoa\\Project2_QuanLyTapHoa.csproj",
         "packagesPath": "C:\\Users\\TungTherK\\.nuget\\packages\\",
-        "outputPath": "B:\\Project2_QuanLyTapHoa\\Project2_QuanLyTapHoa\\obj\\",
+        "outputPath": "B:\\NguyenCongTung_2310900051_Project2\\Project2_QuanLyTapHoa\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

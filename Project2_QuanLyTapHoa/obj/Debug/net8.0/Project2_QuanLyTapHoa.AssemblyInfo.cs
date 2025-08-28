@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Project2_QuanLyTapHoa")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+333696044e2b10892905dcaf6af3b75305c7a8ab")]
 [assembly: System.Reflection.AssemblyProductAttribute("Project2_QuanLyTapHoa")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Project2_QuanLyTapHoa")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -17,6 +17,8 @@ public partial class KhachHang
 
     public bool TrangThai { get; set; }
 
+    public string MatKhau { get; set; } = null!;
+
     public virtual ICollection<DanhGiaSanPham> DanhGiaSanPhams { get; set; } = new List<DanhGiaSanPham>();
 
     public virtual ICollection<HoaDon> HoaDons { get; set; } = new List<HoaDon>();

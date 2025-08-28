@@ -1,60 +1,58 @@
 ﻿@model IEnumerable<Project2_QuanLyTapHoa.Models.ChiTietHoaDon>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Danh sách chi tiết hóa đơn";
 }
 
-<h1>Index</h1>
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2><i class="bi bi-list-ul"></i> @ViewData["Title"]</h2>
+        <a asp-action="Create" class="btn btn-success">
+            <i class="bi bi-plus-circle"></i> Thêm mới
+        </a>
+    </div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.SoLuong)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DonGia)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ThanhTien)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MaHdNavigation)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MaSpNavigation)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.SoLuong)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DonGia)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ThanhTien)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MaHdNavigation.MaHd)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MaSpNavigation.MaSp)
-            </td>
-            <td>
-                    <a asp-action="Edit" asp-route-id="@item.MaCthd">Edit</a>
-                    |
-                <a asp-action="Details" asp-route-id="@item.MaCthd">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.MaCthd">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    <div class="card shadow-sm border-0 rounded-3">
+        <div class="card-body">
+            <table class="table table-hover align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Số lượng</th>
+                        <th>Đơn giá</th>
+                        <th>Thành tiền</th>
+                        <th>Hóa đơn</th>
+                        <th>Sản phẩm</th>
+                        <th class="text-center" style="width:180px;">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.SoLuong</td>
+                            <td>@String.Format("{0:N0} ₫", item.DonGia)</td>
+                            <td class="fw-bold text-danger">@String.Format("{0:N0} ₫", item.ThanhTien)</td>
+                            <td>
+                                <span class="badge bg-secondary">
+                                    HD-@item.MaHdNavigation?.MaHd
+                                </span>
+                                <div class="small text-muted">
+                                    @item.MaHdNavigation?.MaKhNavigation?.HoTen
+                                </div>
+                            </td>
+                            <td>@item.MaSpNavigation?.TenSp</td>
+                            <td class="text-center">
+                                <a asp-action="Edit" asp-route-id="@item.MaCthd" class="btn btn-sm btn-primary">
+                                    <i class="bi bi-pencil-square"></i> Sửa
+                                </a>
+                                <a asp-action="Details" asp-route-id="@item.MaCthd" class="btn btn-sm btn-info text-white">
+                                    <i class="bi bi-eye"></i> Xem
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "kyjuPYulSfU=",
+  "dgSpecHash": "r1EbbepThHk=",
   "success": true,
-  "projectFilePath": "B:\\Project2_QuanLyTapHoa\\Project2_QuanLyTapHoa\\Project2_QuanLyTapHoa.csproj",
+  "projectFilePath": "B:\\NguyenCongTung_2310900051_Project2\\Project2_QuanLyTapHoa\\Project2_QuanLyTapHoa.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\TungTherK\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\TungTherK\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",

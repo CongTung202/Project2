@@ -195,6 +195,14 @@ namespace Project2_QuanLyTapHoa.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+        [HttpGet]
+        public async Task<IActionResult> GetDonGia(int id)
+        {
+            var sp = await _context.SanPhams.FindAsync(id);
+            if (sp == null) return NotFound();
+            return Json(sp.DonGia);
+        }
+
 
         private bool SanPhamExists(int id)
         {

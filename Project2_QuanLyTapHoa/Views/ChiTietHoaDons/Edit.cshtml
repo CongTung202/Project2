@@ -15,19 +15,29 @@
 
     <div class="form-group">
         <label asp-for="SoLuong"></label>
-        <input asp-for="SoLuong" class="form-control" />
+        <input asp-for="SoLuong" class="form-control" id="SoLuong" />
     </div>
 
     <div class="form-group">
         <label asp-for="DonGia"></label>
-        <input asp-for="DonGia" class="form-control" />
+        <input asp-for="DonGia" class="form-control" readonly />
     </div>
 
     <div class="form-group">
         <label asp-for="ThanhTien"></label>
-        <input asp-for="ThanhTien" class="form-control" />
+        <input asp-for="ThanhTien" class="form-control" readonly />
     </div>
 
     <button type="submit" class="btn btn-primary">Lưu</button>
     <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
 </form>
+
+@section Scripts {
+    <script>
+        document.getElementById("SoLuong").addEventListener("input", function () {
+            var soLuong = parseFloat(this.value) || 0;
+            var donGia = parseFloat(document.getElementById("DonGia").value) || 0;
+            document.getElementById("ThanhTien").value = soLuong * donGia;
+        });
+    </script>
+}

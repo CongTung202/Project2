@@ -27,17 +27,11 @@ namespace Project2_QuanLyTapHoa.Controllers
         // GET: KhachHangs/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
             var khachHang = await _context.KhachHangs
                 .FirstOrDefaultAsync(m => m.MaKh == id);
-            if (khachHang == null)
-            {
-                return NotFound();
-            }
+            if (khachHang == null) return NotFound();
 
             return View(khachHang);
         }
@@ -49,14 +43,13 @@ namespace Project2_QuanLyTapHoa.Controllers
         }
 
         // POST: KhachHangs/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MaKh,HoTen,Email,DienThoai,DiaChi,TrangThai")] KhachHang khachHang)
+        public async Task<IActionResult> Create([Bind("MaKh,HoTen,Email,DienThoai,DiaChi,TrangThai,MatKhau")] KhachHang khachHang)
         {
             if (ModelState.IsValid)
             {
+                // ⚠ TODO: Hash mật khẩu trước khi lưu
                 _context.Add(khachHang);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -67,48 +60,33 @@ namespace Project2_QuanLyTapHoa.Controllers
         // GET: KhachHangs/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
             var khachHang = await _context.KhachHangs.FindAsync(id);
-            if (khachHang == null)
-            {
-                return NotFound();
-            }
+            if (khachHang == null) return NotFound();
+
             return View(khachHang);
         }
 
         // POST: KhachHangs/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("MaKh,HoTen,Email,DienThoai,DiaChi,TrangThai")] KhachHang khachHang)
+        public async Task<IActionResult> Edit(int id, [Bind("MaKh,HoTen,Email,DienThoai,DiaChi,TrangThai,MatKhau")] KhachHang khachHang)
         {
-            if (id != khachHang.MaKh)
-            {
-                return NotFound();
-            }
+            if (id != khachHang.MaKh) return NotFound();
 
             if (ModelState.IsValid)
             {
                 try
                 {
+                    // ⚠ TODO: Hash mật khẩu trước khi lưu
                     _context.Update(khachHang);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!KhachHangExists(khachHang.MaKh))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    if (!KhachHangExists(khachHang.MaKh)) return NotFound();
+                    else throw;
                 }
                 return RedirectToAction(nameof(Index));
             }
@@ -118,17 +96,11 @@ namespace Project2_QuanLyTapHoa.Controllers
         // GET: KhachHangs/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
             var khachHang = await _context.KhachHangs
                 .FirstOrDefaultAsync(m => m.MaKh == id);
-            if (khachHang == null)
-            {
-                return NotFound();
-            }
+            if (khachHang == null) return NotFound();
 
             return View(khachHang);
         }

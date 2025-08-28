@@ -45,29 +45,39 @@ namespace Project2_QuanLyTapHoa.Controllers
             return View(danhGiaSanPham);
         }
 
+        // GET: Create
         [HttpGet]
         public IActionResult Create()
         {
-            ViewData["MaKh"] = new SelectList(_context.KhachHangs, "MaKh", "MaKh");
-            ViewData["MaSp"] = new SelectList(_context.SanPhams, "MaSp", "MaSp");
+            ViewData["MaKh"] = new SelectList(_context.KhachHangs, "MaKh", "HoTen");
+            ViewData["MaSp"] = new SelectList(_context.SanPhams, "MaSp", "TenSp");
             return View();
         }
 
+        // POST: Create (AJAX)
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] DanhGiaSanPhamDto dto)
         {
+            if (dto == null)
+                return Json(new { success = false, message = "Dữ liệu không hợp lệ" });
+
             if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+            {
+                var errors = ModelState.Values.SelectMany(v => v.Errors)
+                                              .Select(e => e.ErrorMessage)
+                                              .ToList();
+                return Json(new { success = false, message = string.Join(", ", errors) });
+            }
 
             var entity = new DanhGiaSanPham
             {
-                MaKh = dto.MaKh,
-                MaSp = dto.MaSp,
-                SoSao = dto.SoSao,
+                MaKh = dto.MaKh.Value,
+                MaSp = dto.MaSp.Value,
+                SoSao = dto.SoSao.Value,
                 NoiDung = dto.NoiDung,
                 LaYeuThich = dto.LaYeuThich,
                 NgayTao = DateTime.Now,
-                TrangThai = true
+                TrangThai = dto.TrangThai
             };
 
             _context.DanhGiaSanPhams.Add(entity);
@@ -75,72 +85,57 @@ namespace Project2_QuanLyTapHoa.Controllers
 
             return Json(new { success = true, message = "Thêm đánh giá thành công" });
         }
+
         // GET: DanhGiaSanPhams/Edit/5
+        [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
-            var entity = await _context.DanhGiaSanPhams.FindAsync(id);
-            if (entity == null)
-            {
-                return NotFound();
-            }
+            var danhGia = await _context.DanhGiaSanPhams.FindAsync(id);
+            if (danhGia == null) return NotFound();
 
-            var dto = new DanhGiaSanPhamDto
+            var dto = new DanhGiaUpdateTrangThaiDto
             {
-                MaDanhGia = entity.MaDanhGia,
-                MaKh = entity.MaKh,
-                MaSp = entity.MaSp,
-                SoSao = entity.SoSao,
-                NoiDung = entity.NoiDung,
-                LaYeuThich = entity.LaYeuThich,
-                NgayTao = entity.NgayTao,
-                TrangThai = entity.TrangThai
+                MaDanhGia = danhGia.MaDanhGia,
+                TrangThai = danhGia.TrangThai
             };
-
-            ViewData["MaKh"] = new SelectList(_context.KhachHangs, "MaKh", "MaKh", dto.MaKh);
-            ViewData["MaSp"] = new SelectList(_context.SanPhams, "MaSp", "MaSp", dto.MaSp);
 
             return View(dto);
         }
 
-        // POST: DanhGiaSanPhams/Edit/5
+        // POST: DanhGiaSanPhams/Edit
         [HttpPost]
-        public async Task<IActionResult> Edit([FromBody] DanhGiaSanPhamDto dto)
+        public async Task<IActionResult> Edit([FromBody] DanhGiaUpdateTrangThaiDto dto)
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                var errors = ModelState.Values
+                                       .SelectMany(v => v.Errors)
+                                       .Select(e => e.ErrorMessage);
+                return Json(new { success = false, message = string.Join("; ", errors) });
             }
 
             var entity = await _context.DanhGiaSanPhams.FindAsync(dto.MaDanhGia);
             if (entity == null)
             {
-                return NotFound();
+                return Json(new { success = false, message = "Không tìm thấy đánh giá" });
             }
 
-            entity.MaKh = dto.MaKh;
-            entity.MaSp = dto.MaSp;
-            entity.SoSao = dto.SoSao;
-            entity.NoiDung = dto.NoiDung;
-            entity.LaYeuThich = dto.LaYeuThich;
-            entity.NgayTao = dto.NgayTao;
             entity.TrangThai = dto.TrangThai;
 
             try
             {
                 _context.Update(entity);
                 await _context.SaveChangesAsync();
-                return Json(new { success = true, message = "Cập nhật thành công" });
+                return Json(new { success = true, message = "Cập nhật trạng thái thành công" });
             }
             catch (Exception ex)
             {
                 return Json(new { success = false, message = ex.Message });
             }
         }
+
 
         // GET: DanhGiaSanPhams/Delete/5
         public async Task<IActionResult> Delete(int? id)

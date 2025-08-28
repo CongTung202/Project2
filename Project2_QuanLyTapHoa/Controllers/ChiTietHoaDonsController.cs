@@ -62,25 +62,35 @@ namespace Project2_QuanLyTapHoa.Controllers
         {
             if (ModelState.IsValid)
             {
-                var entity = new ChiTietHoaDon
+                // Lấy đơn giá từ bảng sản phẩm
+                var sp = await _context.SanPhams.FindAsync(dto.MaSp);
+                if (sp == null)
                 {
-                    MaHd = dto.MaHd,
-                    MaSp = dto.MaSp,
-                    SoLuong = dto.SoLuong,
-                    DonGia = dto.DonGia,
-                    ThanhTien = dto.ThanhTien
-                };
+                    ModelState.AddModelError("MaSp", "Sản phẩm không tồn tại");
+                }
+                else
+                {
+                    var entity = new ChiTietHoaDon
+                    {
+                        MaHd = dto.MaHd,
+                        MaSp = dto.MaSp,
+                        SoLuong = dto.SoLuong,
+                        DonGia = sp.DonGia, // lấy từ sản phẩm
+                        ThanhTien = sp.DonGia * dto.SoLuong // tự tính
+                    };
 
-                _context.Add(entity);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                    _context.Add(entity);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
             }
 
-            // nếu ModelState lỗi thì load lại SelectList
+            // Nếu lỗi thì load lại SelectList
             ViewData["MaHd"] = new SelectList(_context.HoaDons, "MaHd", "MaHd", dto.MaHd);
             ViewData["MaSp"] = new SelectList(_context.SanPhams, "MaSp", "TenSp", dto.MaSp);
             return View(dto);
         }
+        
 
 
 
@@ -124,9 +134,16 @@ namespace Project2_QuanLyTapHoa.Controllers
                 if (entity == null)
                     return NotFound();
 
+                // Chỉ cho sửa số lượng
                 entity.SoLuong = dto.SoLuong;
-                entity.DonGia = dto.DonGia;
-                entity.ThanhTien = dto.ThanhTien;
+
+                // Lấy đơn giá gốc từ CSDL (không cho user sửa)
+                var sp = await _context.SanPhams.FindAsync(entity.MaSp);
+                if (sp != null)
+                {
+                    entity.DonGia = sp.DonGia;
+                    entity.ThanhTien = sp.DonGia * dto.SoLuong;
+                }
 
                 _context.Update(entity);
                 await _context.SaveChangesAsync();
