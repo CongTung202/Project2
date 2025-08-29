@@ -1,14 +1,16 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using Project2_QuanLyTapHoa.Filters;
+using Project2_QuanLyTapHoa.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using Project2_QuanLyTapHoa.Models;
 
 namespace Project2_QuanLyTapHoa.Controllers
 {
+    [AuthorizeAdmin]
     public class QuanTriViensController : Controller
     {
         private readonly QuanLyTapHoaContext _context;
@@ -45,7 +47,11 @@ namespace Project2_QuanLyTapHoa.Controllers
         // GET: QuanTriViens/Create
         public IActionResult Create()
         {
-            return View();
+            var model = new QuanTriVien
+            {
+                TrangThai = true // default true
+            };
+            return View(model);
         }
 
         // POST: QuanTriViens/Create

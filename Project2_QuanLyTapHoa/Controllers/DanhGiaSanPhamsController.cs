@@ -1,14 +1,16 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using Project2_QuanLyTapHoa.Filters;
+using Project2_QuanLyTapHoa.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using Project2_QuanLyTapHoa.Models;
 
 namespace Project2_QuanLyTapHoa.Controllers
 {
+    [AuthorizeAdmin]
     public class DanhGiaSanPhamsController : Controller
     {
         private readonly QuanLyTapHoaContext _context;

@@ -11,25 +11,25 @@
     <input type="hidden" asp-for="MaSp" name="MaSp" />
 
     <div class="form-group">
-        <label asp-for="TenSp"></label>
+        <label asp-for="TenSp">Tên</label>
         <input asp-for="TenSp" name="TenSp" class="form-control" />
         <span asp-validation-for="TenSp" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="MoTa"></label>
+        <label asp-for="MoTa">Mô Tả</label>
         <textarea asp-for="MoTa" name="MoTa" class="form-control"></textarea>
         <span asp-validation-for="MoTa" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="DonGia"></label>
+        <label asp-for="DonGia">Đơn Giá</label>
         <input asp-for="DonGia" name="DonGia" class="form-control" />
         <span asp-validation-for="DonGia" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="SoLuong"></label>
+        <label asp-for="SoLuong">Số Lượng</label>
         <input asp-for="SoLuong" name="SoLuong" class="form-control" />
         <span asp-validation-for="SoLuong" class="text-danger"></span>
     </div>
@@ -58,20 +58,20 @@
     </div>
 
     <div class="form-group">
-        <label asp-for="MaLoai"></label>
+        <label asp-for="MaLoai">Mã Loại</label>
         <select asp-for="MaLoai" name="MaLoai" class="form-control" asp-items="ViewBag.MaLoai"></select>
         <span asp-validation-for="MaLoai" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="PhanTramGiam"></label>
+        <label asp-for="PhanTramGiam">Giảm %</label>
         <input asp-for="PhanTramGiam" name="PhanTramGiam" class="form-control" />
         <span asp-validation-for="PhanTramGiam" class="text-danger"></span>
     </div>
 
     <div class="form-group form-check">
         <input class="form-check-input" asp-for="TrangThai" name="TrangThai" />
-        <label class="form-check-label" asp-for="TrangThai"></label>
+        <label class="form-check-label" asp-for="TrangThai">Trạng Thái</label>
     </div>
 
     <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i> Lưu</button>

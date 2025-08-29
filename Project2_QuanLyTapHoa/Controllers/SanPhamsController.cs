@@ -1,14 +1,16 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using Project2_QuanLyTapHoa.Filters;
+using Project2_QuanLyTapHoa.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using Project2_QuanLyTapHoa.Models;
 
 namespace Project2_QuanLyTapHoa.Controllers
 {
+    [AuthorizeAdmin]
     public class SanPhamsController : Controller
     {
         private readonly QuanLyTapHoaContext _context;
@@ -19,6 +21,7 @@ namespace Project2_QuanLyTapHoa.Controllers
         }
 
         // GET: SanPhams
+
         public async Task<IActionResult> Index()
         {
             var quanLyTapHoaContext = _context.SanPhams.Include(s => s.MaLoaiNavigation);
@@ -47,7 +50,7 @@ namespace Project2_QuanLyTapHoa.Controllers
         // GET: SanPhams/Create
         public IActionResult Create()
         {
-            ViewData["MaLoai"] = new SelectList(_context.LoaiSanPhams, "MaLoai", "MaLoai");
+            ViewData["MaLoai"] = new SelectList(_context.LoaiSanPhams, "MaLoai", "TenLoai");
             return View();
         }
 
