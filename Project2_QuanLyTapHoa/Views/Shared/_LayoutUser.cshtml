@@ -1,0 +1,159 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+
+@{
+    Layout = null;
+    var hoTen = HttpContextAccessor.HttpContext.Session.GetString("HoTen");
+    var maKh = HttpContextAccessor.HttpContext.Session.GetInt32("MaKh");
+
+    // Nếu bạn đã lưu giỏ hàng trong session, có thể lấy ra ở đây
+    var cartCount = HttpContextAccessor.HttpContext.Session.GetInt32("CartCount") ?? 0;
+}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - NemeChua Shop</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        body {
+            font-size: 0.95rem;
+            background: #fffdfd;
+        }
+
+        .navbar {
+            background: #C0392B !important; /* đỏ lựu */
+        }
+
+            .navbar .nav-link {
+                color: #fff !important;
+                font-weight: 500;
+            }
+
+                .navbar .nav-link:hover {
+                    background: #A93226;
+                    border-radius: .25rem;
+                }
+
+        .btn-primary {
+            background-color: #C0392B;
+            border-color: #C0392B;
+        }
+
+            .btn-primary:hover {
+                background-color: #A93226;
+                border-color: #A93226;
+            }
+
+        footer {
+            background: #fef6f6;
+            border-top: 2px solid #C0392B;
+            padding: 20px;
+            text-align: center;
+            margin-top: 40px;
+            color: #7B241C;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="py-3 px-4 d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center">
+            <img src="https://tungkysie05.id.vn/logo.png" alt="Logo" style="height:40px;" class="me-2" />
+            <h4 class="mb-0 fw-bold">NemeChua Shop</h4>
+        </div>
+        <div>
+            @if (!string.IsNullOrEmpty(hoTen))
+            {
+                <span class="me-3">Xin chào, <strong>@hoTen</strong></span>
+                <a asp-controller="AccountUsers" asp-action="Logout" class="btn btn-outline-danger btn-sm">
+                    <i class="bi bi-box-arrow-right"></i> Đăng xuất
+                </a>
+            }
+            else
+            {
+                <a asp-controller="AccountUsers" asp-action="Login" class="btn btn-outline-primary btn-sm me-2">
+                    <i class="bi bi-box-arrow-in-right"></i> Đăng nhập
+                </a>
+                <a asp-controller="Account" asp-action="Register" class="btn btn-outline-success btn-sm">
+                    <i class="bi bi-person-plus"></i> Đăng ký
+                </a>
+            }
+        </div>
+    </header>
+
+    <!-- Search bar -->
+    <div class="bg-light py-3 px-4">
+        <form asp-controller="UserSanPhams" asp-action="Search" method="get" class="d-flex">
+            <input type="text" name="keyword" class="form-control me-2" placeholder="Tìm sản phẩm..." />
+            <button type="submit" class="btn btn-primary">
+                <i class="bi bi-search"></i> Tìm kiếm
+            </button>
+        </form>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark px-4">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav" aria-controls="navbarNav"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a asp-controller="UserSanPhams" asp-action="Home" class="nav-link">
+                            <i class="bi bi-house-door"></i> Trang chủ
+                        </a>
+                    </li>
+                    @if (ViewBag.LoaiSanPhams != null)
+                    {
+                        foreach (var loai in ViewBag.LoaiSanPhams)
+                        {
+                            <li class="nav-item">
+                                <a asp-controller="UserSanPhams" asp-action="ByCategory" asp-route-id="@loai.MaLoai" class="nav-link">
+                                    @loai.TenLoai
+                                </a>
+                            </li>
+                        }
+                    }
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a asp-controller="Cart" asp-action="Index" class="nav-link position-relative">
+                            <i class="bi bi-cart3"></i> Giỏ hàng
+                            @if (cartCount > 0)
+                            {
+                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning text-dark">
+                                    @cartCount
+                                </span>
+                            }
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main -->
+    <main class="container my-4">
+        @RenderBody()
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p class="mb-0">&copy; 2025 - Nhóm 5: Hệ thống quản lý bán hàng online</p>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

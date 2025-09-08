@@ -523,3 +523,4 @@ B:\NguyenCongTung_2310900051_Project2\Project2_QuanLyTapHoa\obj\Debug\net8.0\ref
 B:\NguyenCongTung_2310900051_Project2\Project2_QuanLyTapHoa\obj\Debug\net8.0\Project2_QuanLyTapHoa.pdb
 B:\NguyenCongTung_2310900051_Project2\Project2_QuanLyTapHoa\obj\Debug\net8.0\Project2_QuanLyTapHoa.genruntimeconfig.cache
 B:\NguyenCongTung_2310900051_Project2\Project2_QuanLyTapHoa\obj\Debug\net8.0\ref\Project2_QuanLyTapHoa.dll
+B:\NguyenCongTung_2310900051_Project2\Project2_QuanLyTapHoa\obj\Debug\net8.0\scopedcss\Views\Shared\_LayoutUser.cshtml.rz.scp.css

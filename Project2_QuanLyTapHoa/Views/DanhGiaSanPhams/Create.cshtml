@@ -10,21 +10,21 @@
         <div class="card-body">
             <form id="createForm">
                 <div class="mb-3">
-                    <label asp-for="MaKh" class="form-label fw-bold"></label>
+                    <label asp-for="MaKh" class="form-label fw-bold">Mã khách</label>
                     <select asp-for="MaKh" class="form-select" asp-items="ViewBag.MaKh" id="MaKh">
                         <option value="">-- Chọn khách hàng --</option>
                     </select>
                 </div>
 
                 <div class="mb-3">
-                    <label asp-for="MaSp" class="form-label fw-bold"></label>
+                    <label asp-for="MaSp" class="form-label fw-bold">Mã SP</label>
                     <select asp-for="MaSp" class="form-select" asp-items="ViewBag.MaSp" id="MaSp">
                         <option value="">-- Chọn sản phẩm --</option>
                     </select>
                 </div>
 
                 <div class="mb-3">
-                    <label asp-for="SoSao" class="form-label fw-bold"></label>
+                    <label asp-for="SoSao" class="form-label fw-bold">Số sao</label>
                     <div id="starRating" class="d-flex gap-2 fs-3 text-warning">
                         <i class="bi bi-star" data-value="1"></i>
                         <i class="bi bi-star" data-value="2"></i>
@@ -37,7 +37,7 @@
 
 
                 <div class="mb-3">
-                    <label asp-for="NoiDung" class="form-label fw-bold"></label>
+                    <label asp-for="NoiDung" class="form-label fw-bold">Nội dung</label>
                     <textarea asp-for="NoiDung" class="form-control" rows="3" id="NoiDung"></textarea>
                 </div>
 
@@ -47,7 +47,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <label asp-for="TrangThai" class="form-label fw-bold"></label>
+                    <label asp-for="TrangThai" class="form-label fw-bold">Trạng thái</label>
                     <select asp-for="TrangThai" class="form-select" id="TrangThai">
                         <option value="true">Hiển thị</option>
                         <option value="false">Ẩn</option>

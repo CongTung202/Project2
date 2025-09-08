@@ -16,50 +16,50 @@
                 <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
 
                 <div class="mb-3">
-                    <label asp-for="MaVoucher" class="form-label"></label>
+                    <label asp-for="MaVoucher" class="form-label"> Mã voucher</label>
                     <input asp-for="MaVoucher" class="form-control" />
                     <span asp-validation-for="MaVoucher" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3">
-                    <label asp-for="TenVoucher" class="form-label"></label>
+                    <label asp-for="TenVoucher" class="form-label">Tên voucher</label>
                     <input asp-for="TenVoucher" class="form-control" />
                     <span asp-validation-for="TenVoucher" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3">
-                    <label asp-for="MoTa" class="form-label"></label>
+                    <label asp-for="MoTa" class="form-label">Mô tả</label>
                     <textarea asp-for="MoTa" class="form-control"></textarea>
                     <span asp-validation-for="MoTa" class="text-danger"></span>
                 </div>
 
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label asp-for="PhanTramGiam" class="form-label"></label>
+                        <label asp-for="PhanTramGiam" class="form-label">% giảm</label>
                         <input asp-for="PhanTramGiam" class="form-control" type="number" min="0" max="100" />
                         <span asp-validation-for="PhanTramGiam" class="text-danger"></span>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label asp-for="GiamTienTrucTiep" class="form-label"></label>
+                        <label asp-for="GiamTienTrucTiep" class="form-label">Giảm trực tiếp</label>
                         <input asp-for="GiamTienTrucTiep" class="form-control" type="number" min="0" />
                         <span asp-validation-for="GiamTienTrucTiep" class="text-danger"></span>
                     </div>
                 </div>
 
                 <div class="mb-3">
-                    <label asp-for="GiaTriDonToiThieu" class="form-label"></label>
+                    <label asp-for="GiaTriDonToiThieu" class="form-label">Tối thiểu</label>
                     <input asp-for="GiaTriDonToiThieu" class="form-control" type="number" min="0" />
                     <span asp-validation-for="GiaTriDonToiThieu" class="text-danger"></span>
                 </div>
 
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label asp-for="NgayBatDau" class="form-label"></label>
+                        <label asp-for="NgayBatDau" class="form-label">Bắt đầu</label>
                         <input asp-for="NgayBatDau" class="form-control" type="datetime-local" value="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" />
                         <span asp-validation-for="NgayBatDau" class="text-danger"></span>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label asp-for="NgayKetThuc" class="form-label"></label>
+                        <label asp-for="NgayKetThuc" class="form-label">Kết thúc</label>
                         <input asp-for="NgayKetThuc" class="form-control" type="datetime-local" />
                         <span asp-validation-for="NgayKetThuc" class="text-danger"></span>
                     </div>

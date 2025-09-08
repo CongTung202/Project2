@@ -20,13 +20,13 @@
                 <dt class="col-sm-3">Mô tả</dt>
                 <dd class="col-sm-9">@Model.MoTa</dd>
 
-                <dt class="col-sm-3">Phần trăm giảm</dt>
+                <dt class="col-sm-3">% giảm</dt>
                 <dd class="col-sm-9">@Model.PhanTramGiam %</dd>
 
                 <dt class="col-sm-3">Giảm tiền trực tiếp</dt>
                 <dd class="col-sm-9">@Model.GiamTienTrucTiep?.ToString("N0") đ</dd>
 
-                <dt class="col-sm-3">Giá trị đơn tối thiểu</dt>
+                <dt class="col-sm-3">Tối thiểu</dt>
                 <dd class="col-sm-9">@Model.GiaTriDonToiThieu?.ToString("N0") đ</dd>
 
                 <dt class="col-sm-3">Số lượng</dt>
@@ -35,14 +35,14 @@
                 <dt class="col-sm-3">Đã sử dụng</dt>
                 <dd class="col-sm-9">@Model.DaSuDung</dd>
 
-                <dt class="col-sm-3">Ngày bắt đầu</dt>
+                <dt class="col-sm-3">Bắt đầu</dt>
                 <dd class="col-sm-9">
                     @(Model.NgayBatDau != null
                                         ? Model.NgayBatDau.ToString("dd/MM/yyyy HH:mm")
                                         : "Chưa có")
                 </dd>
 
-                <dt class="col-sm-3">Ngày kết thúc</dt>
+                <dt class="col-sm-3">Kết thúc</dt>
                 <dd class="col-sm-9">
                     @(Model.NgayKetThuc != null
                                         ? Model.NgayKetThuc.ToString("dd/MM/yyyy HH:mm")

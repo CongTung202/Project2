@@ -208,6 +208,18 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[B:/NguyenCongTung_2310900051_Project2/Project2_QuanLyTapHoa/Views/User/AccountUsers/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxBY2NvdW50VXNlcnNcTG9naW4uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[B:/NguyenCongTung_2310900051_Project2/Project2_QuanLyTapHoa/Views/User/SanPhamUsers/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxTYW5QaGFtVXNlcnNcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[B:/NguyenCongTung_2310900051_Project2/Project2_QuanLyTapHoa/Views/User/SanPhamUsers/Home.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxTYW5QaGFtVXNlcnNcSG9tZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [B:/NguyenCongTung_2310900051_Project2/Project2_QuanLyTapHoa/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -219,3 +231,7 @@ build_metadata.AdditionalFiles.CssScope =
 [B:/NguyenCongTung_2310900051_Project2/Project2_QuanLyTapHoa/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-y0dgy67z6j
+
+[B:/NguyenCongTung_2310900051_Project2/Project2_QuanLyTapHoa/Views/Shared/_LayoutUser.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXRVc2VyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = b-2pc3k0326v
