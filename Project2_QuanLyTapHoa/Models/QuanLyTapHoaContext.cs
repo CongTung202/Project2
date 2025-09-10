@@ -33,13 +33,13 @@ public partial class QuanLyTapHoaContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=BOKA-CHAN\\MSSQLSERVER01;Database=QuanLyTapHoa;uid=sa;pwd=12345678; MultipleActiveResultSets=True; TrustServerCertificate=True ");
+        => optionsBuilder.UseSqlServer("Server=BOKACHAN\\MSSQLSERVER01;Database=QuanLyTapHoa;User Id=sa;Password=12345678;TrustServerCertificate=True;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<ChiTietHoaDon>(entity =>
         {
-            entity.HasKey(e => e.MaCthd).HasName("PK__ChiTietH__1E4FA7719A2E09A5");
+            entity.HasKey(e => e.MaCthd).HasName("PK__ChiTietH__1E4FA77180508239");
 
             entity.ToTable("ChiTietHoaDon");
 
@@ -53,17 +53,17 @@ public partial class QuanLyTapHoaContext : DbContext
             entity.HasOne(d => d.MaHdNavigation).WithMany(p => p.ChiTietHoaDons)
                 .HasForeignKey(d => d.MaHd)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__ChiTietHoa__MaHD__5BE2A6F2");
+                .HasConstraintName("FK__ChiTietHoa__MaHD__5CD6CB2B");
 
             entity.HasOne(d => d.MaSpNavigation).WithMany(p => p.ChiTietHoaDons)
                 .HasForeignKey(d => d.MaSp)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__ChiTietHoa__MaSP__5CD6CB2B");
+                .HasConstraintName("FK__ChiTietHoa__MaSP__5DCAEF64");
         });
 
         modelBuilder.Entity<DanhGiaSanPham>(entity =>
         {
-            entity.HasKey(e => e.MaDanhGia).HasName("PK__DanhGiaS__AA9515BFC9533152");
+            entity.HasKey(e => e.MaDanhGia).HasName("PK__DanhGiaS__AA9515BFB8B42E8A");
 
             entity.ToTable("DanhGiaSanPham");
 
@@ -78,17 +78,17 @@ public partial class QuanLyTapHoaContext : DbContext
             entity.HasOne(d => d.MaKhNavigation).WithMany(p => p.DanhGiaSanPhams)
                 .HasForeignKey(d => d.MaKh)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__DanhGiaSan__MaKH__6383C8BA");
+                .HasConstraintName("FK__DanhGiaSan__MaKH__6477ECF3");
 
             entity.HasOne(d => d.MaSpNavigation).WithMany(p => p.DanhGiaSanPhams)
                 .HasForeignKey(d => d.MaSp)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__DanhGiaSan__MaSP__6477ECF3");
+                .HasConstraintName("FK__DanhGiaSan__MaSP__656C112C");
         });
 
         modelBuilder.Entity<HoaDon>(entity =>
         {
-            entity.HasKey(e => e.MaHd).HasName("PK__HoaDon__2725A6E00627C864");
+            entity.HasKey(e => e.MaHd).HasName("PK__HoaDon__2725A6E0EF203880");
 
             entity.ToTable("HoaDon");
 
@@ -115,20 +115,20 @@ public partial class QuanLyTapHoaContext : DbContext
             entity.HasOne(d => d.MaKhNavigation).WithMany(p => p.HoaDons)
                 .HasForeignKey(d => d.MaKh)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__HoaDon__MaKH__5535A963");
+                .HasConstraintName("FK__HoaDon__MaKH__5629CD9C");
 
             entity.HasOne(d => d.MaVoucherNavigation).WithMany(p => p.HoaDons)
                 .HasForeignKey(d => d.MaVoucher)
-                .HasConstraintName("FK__HoaDon__MaVouche__5629CD9C");
+                .HasConstraintName("FK__HoaDon__MaVouche__571DF1D5");
         });
 
         modelBuilder.Entity<KhachHang>(entity =>
         {
-            entity.HasKey(e => e.MaKh).HasName("PK__KhachHan__2725CF1E937FA332");
+            entity.HasKey(e => e.MaKh).HasName("PK__KhachHan__2725CF1EAB303733");
 
             entity.ToTable("KhachHang");
 
-            entity.HasIndex(e => e.Email, "UQ__KhachHan__A9D105340692DBFC").IsUnique();
+            entity.HasIndex(e => e.Email, "UQ__KhachHan__A9D105347604BC23").IsUnique();
 
             entity.Property(e => e.MaKh).HasColumnName("MaKH");
             entity.Property(e => e.DiaChi).HasMaxLength(200);
@@ -147,7 +147,7 @@ public partial class QuanLyTapHoaContext : DbContext
 
         modelBuilder.Entity<LoaiSanPham>(entity =>
         {
-            entity.HasKey(e => e.MaLoai).HasName("PK__LoaiSanP__730A5759E0AB150E");
+            entity.HasKey(e => e.MaLoai).HasName("PK__LoaiSanP__730A57599EE7833E");
 
             entity.ToTable("LoaiSanPham");
 
@@ -158,7 +158,7 @@ public partial class QuanLyTapHoaContext : DbContext
 
         modelBuilder.Entity<MaGiamGium>(entity =>
         {
-            entity.HasKey(e => e.MaVoucher).HasName("PK__MaGiamGi__0AAC5B11D3B1EC08");
+            entity.HasKey(e => e.MaVoucher).HasName("PK__MaGiamGi__0AAC5B11B9B8F52A");
 
             entity.Property(e => e.MaVoucher)
                 .HasMaxLength(20)
@@ -182,11 +182,11 @@ public partial class QuanLyTapHoaContext : DbContext
 
         modelBuilder.Entity<QuanTriVien>(entity =>
         {
-            entity.HasKey(e => e.MaQtv).HasName("PK__QuanTriV__396E9996A5C675DC");
+            entity.HasKey(e => e.MaQtv).HasName("PK__QuanTriV__396E99963D226F76");
 
             entity.ToTable("QuanTriVien");
 
-            entity.HasIndex(e => e.Email, "UQ__QuanTriV__A9D105343EA596EC").IsUnique();
+            entity.HasIndex(e => e.Email, "UQ__QuanTriV__A9D1053403B295ED").IsUnique();
 
             entity.Property(e => e.MaQtv).HasColumnName("MaQTV");
             entity.Property(e => e.DiaChi).HasMaxLength(200);
@@ -205,7 +205,7 @@ public partial class QuanLyTapHoaContext : DbContext
 
         modelBuilder.Entity<SanPham>(entity =>
         {
-            entity.HasKey(e => e.MaSp).HasName("PK__SanPham__2725081C06659931");
+            entity.HasKey(e => e.MaSp).HasName("PK__SanPham__2725081CA42EBA7E");
 
             entity.ToTable("SanPham");
 
@@ -221,7 +221,7 @@ public partial class QuanLyTapHoaContext : DbContext
 
             entity.HasOne(d => d.MaLoaiNavigation).WithMany(p => p.SanPhams)
                 .HasForeignKey(d => d.MaLoai)
-                .HasConstraintName("FK__SanPham__MaLoai__45F365D3");
+                .HasConstraintName("FK__SanPham__MaLoai__46E78A0C");
         });
 
         OnModelCreatingPartial(modelBuilder);

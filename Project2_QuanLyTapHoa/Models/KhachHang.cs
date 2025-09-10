@@ -11,13 +11,13 @@ public partial class KhachHang
 
     public string? Email { get; set; }
 
+    public string MatKhau { get; set; } = null!;
+
     public string? DienThoai { get; set; }
 
     public string? DiaChi { get; set; }
 
     public bool TrangThai { get; set; }
-
-    public string MatKhau { get; set; } = null!;
 
     public virtual ICollection<DanhGiaSanPham> DanhGiaSanPhams { get; set; } = new List<DanhGiaSanPham>();
 

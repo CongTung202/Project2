@@ -3,36 +3,27 @@
     ViewData["Title"] = "Đăng nhập khách hàng";
 }
 
-<div class="container mt-4">
-    <div class="row justify-content-center">
-        <div class="col-md-5">
-            <div class="card shadow-lg border-0 rounded-3">
-                <div class="card-header bg-primary text-white text-center">
-                    <h4>Đăng nhập khách hàng</h4>
-                </div>
-                <div class="card-body">
-                    @if (ViewBag.Error != null)
-                    {
-                        <div class="alert alert-danger">@ViewBag.Error</div>
-                    }
-
-                    <form asp-action="Login" method="post">
-                        <div class="form-group mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" name="email" class="form-control" placeholder="Nhập email" required />
-                        </div>
-
-                        <div class="form-group mb-3">
-                            <label for="matKhau" class="form-label">Mật khẩu</label>
-                            <input type="password" name="matKhau" class="form-control" placeholder="Nhập mật khẩu" required />
-                        </div>
-
-                        <div class="d-grid">
-                            <button type="submit" class="btn btn-primary">Đăng nhập</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="text-center mb-4">
+    <h3 class="fw-bold text-primary">Đăng nhập khách hàng</h3>
 </div>
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">@ViewBag.Error</div>
+}
+
+<form asp-action="Login" method="post">
+    <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" name="email" class="form-control" placeholder="Nhập email" required />
+    </div>
+
+    <div class="mb-3">
+        <label for="matKhau" class="form-label">Mật khẩu</label>
+        <input type="password" name="matKhau" class="form-control" placeholder="Nhập mật khẩu" required />
+    </div>
+
+    <div class="d-grid">
+        <button type="submit" class="btn btn-primary">Đăng nhập</button>
+    </div>
+</form>

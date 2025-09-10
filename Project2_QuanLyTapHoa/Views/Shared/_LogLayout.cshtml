@@ -21,18 +21,19 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            padding: 15px;
         }
 
         .auth-card {
             width: 100%;
-            max-width: 420px;
+            max-width: 500px; /* tăng rộng hơn 420px */
         }
     </style>
 </head>
 <body>
     <div class="auth-wrapper">
         <div class="card shadow-lg rounded auth-card">
-            <div class="card-body">
+            <div class="card-body p-4">
                 @RenderBody()
             </div>
         </div>

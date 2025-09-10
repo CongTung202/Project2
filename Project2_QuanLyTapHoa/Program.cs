@@ -1,5 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Project2_QuanLyTapHoa.Models;
+using System.Globalization;
+
+var cultureInfo = new CultureInfo("vi-VN"); // Việt Nam dùng dấu phẩy
+cultureInfo.NumberFormat.NumberDecimalSeparator = ",";
+cultureInfo.NumberFormat.NumberGroupSeparator = ".";
+
+CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
