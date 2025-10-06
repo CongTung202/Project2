@@ -1,0 +1,169 @@
+﻿@using System.Text.Json
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="NemeChuaShop - cửa hàng trực tuyến uy tín, chất lượng" />
+    <title>@ViewData["Title"]</title>
+
+    <link href="https://tungkysie05.id.vn/image/app_icon.png" rel="icon" type="image/x-icon"/>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/app.extra.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@600&display=swap" rel="stylesheet">
+
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+    <style>
+        body {
+            background: #f6f7fb;
+            color: #222;
+        }
+
+        main.container {
+            padding-top: 24px;
+            padding-bottom: 48px;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            letter-spacing: .4px;
+        }
+
+        .shop-title {
+            font-family: 'Pacifico', cursive;
+            font-size: 28px;
+            margin: 0;
+        }
+
+        .music-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        /* Hiển thị tên người dùng */
+        .user-welcome {
+            font-size: 0.9rem;
+            color: #6c757d;
+            margin-right: 1rem;
+        }
+
+        .user-name {
+            font-weight: 600;
+            color: #ff6b35;
+        }
+        /* Đảm bảo font tiếng Việt hiển thị đúng */
+        body, .form-control, .btn, .alert {
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
+    @RenderSection("Head", false)
+    @RenderSection("Styles", required: false)
+</head>
+<body class="d-flex flex-column min-vh-100">
+    <!-- Header -->
+    @Html.Partial("_Header")
+
+    <!-- Navbar -->
+    @Html.Partial("_Navbar")
+
+    <!-- Banner đầu -->
+
+    <!-- Body tĩnh -->
+    @Html.Partial("_Body")
+
+    <!-- Nội dung động -->
+    <main class="flex-grow-1 container py-4">
+        @RenderBody()
+    </main>
+
+    <!-- Banner cuối -->
+
+
+    <!-- Footer -->
+    @Html.Partial("_Footer")
+
+    <!-- Scripts -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
+    <script src="~/js/site.app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- hidden anti-forgery token for Ajax -->
+    <form id="antiForgeryForm" style="display:none;">
+        @Html.AntiForgeryToken()
+    </form>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
+    <script src="~/js/site.app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        // setup global Ajax anti-forgery header
+        (function () {
+            try {
+                var token = $('#antiForgeryForm input[name="__RequestVerificationToken"]').val();
+                if (token) {
+                    $.ajaxSetup({
+                        headers: { 'RequestVerificationToken': token },
+                        xhrFields: { withCredentials: true }
+                    });
+                }
+            } catch (e) {
+                console && console.warn('Ajax setup token error', e);
+            }
+        })();
+
+        // show logout success
+        (function () {
+            var urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('logout') === 'success') {
+                Swal.fire({
+                    title: 'Đăng xuất thành công!',
+                    text: 'Bạn đã đăng xuất khỏi hệ thống',
+                    icon: 'success',
+                    confirmButtonColor: '#ff6b35',
+                    timer: 1600,
+                    showConfirmButton: false
+                });
+                // remove query param
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+        })();
+
+        // show welcome message once (safe encoding)
+        @if (HttpContextAccessor.HttpContext?.Session?.GetString("ShowWelcome") == "true")
+        {
+                var hoTenJson = JsonSerializer.Serialize(HttpContextAccessor.HttpContext.Session.GetString("HoTen") ?? "Khách hàng");
+                <text>
+                (function(){
+                    var hoTen = @Html.Raw(hoTenJson);
+                    Swal.fire({
+                        title: 'Đăng nhập thành công!',
+                        html: 'Chào mừng <b>' + hoTen + '</b> đến với<br/>NemeChuaShop',
+                        icon: 'success',
+                        confirmButtonColor: '#ff6b35',
+                        timer: 1800,
+                        showConfirmButton: false
+                    });
+                    // clear flag
+                    fetch('/Account/HideWelcomeMessage', { method: 'POST', headers: { 'RequestVerificationToken': $('#antiForgeryForm input[name="__RequestVerificationToken"]').val() }});
+                })();
+                </text>
+        }
+    </script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

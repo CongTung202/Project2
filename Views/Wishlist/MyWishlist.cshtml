@@ -1,0 +1,62 @@
+﻿@model IEnumerable<NemeShop.Models.DanhGiaSanPhamDto>
+@{
+    ViewData["Title"] = "Yêu thích của tôi";
+}
+
+<div class="container py-4">
+    <h2 class="mb-4">Sản phẩm yêu thích</h2>
+
+    @if (Model == null || !Model.Any())
+    {
+        <div class="alert alert-info">Bạn chưa có sản phẩm nào trong danh sách yêu thích.</div>
+    }
+    else
+    {
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-3 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <!-- Nếu bạn có ảnh trong DTO có thể hiển thị thay placeholder -->
+                        <img src="@(item.TenSanPham != null ? "/images/placeholder.png" : "/images/placeholder.png")" class="card-img-top" alt="@item.TenSanPham" />
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">@item.TenSanPham</h5>
+                            <p class="text-muted mb-2">Ngày thêm: @item.NgayTao.ToString("dd/MM/yyyy")</p>
+                            <div class="mt-auto d-flex gap-2">
+                                <a href="@Url.Action("Details", "SanPhams", new { id = item.MaSp })" class="btn btn-sm btn-outline-secondary">Xem</a>
+                                <button class="btn btn-sm btn-danger remove-from-wishlist" data-id="@item.MaSp">Xóa</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        $(function () {
+            $(document).on('click', '.remove-from-wishlist', function () {
+                var btn = $(this);
+                var id = btn.data('id');
+                $.ajax({
+                    url: '/Wishlist/RemoveFromWishlist',
+                    method: 'POST',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify({ MaSp: id })
+                }).done(function (res) {
+                    if (res.success) {
+                        Swal.fire({ title: 'Đã xóa', text: res.message, icon: 'success', timer: 1200, showConfirmButton: false })
+                            .then(function () { location.reload(); });
+                    } else {
+                        Swal.fire('Thông báo', res.message, 'warning');
+                    }
+                }).fail(function (xhr) {
+                    if (xhr.status === 401) Swal.fire('Thông báo', 'Vui lòng đăng nhập', 'info');
+                    else Swal.fire('Lỗi', 'Có lỗi xảy ra', 'error');
+                });
+            });
+        });
+    </script>
+}
