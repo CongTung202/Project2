@@ -1,0 +1,410 @@
+﻿@using System.Text.Json
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@{
+    var showWelcome = HttpContextAccessor.HttpContext?.Session?.GetString("ShowWelcome") == "true";
+    var hoTen = HttpContextAccessor.HttpContext?.Session?.GetString("HoTen") ?? "Khách hàng";
+
+    // Kiểm tra null cho các session khác
+    var maKh = HttpContextAccessor.HttpContext?.Session?.GetInt32("MaKh");
+    var adminId = HttpContextAccessor.HttpContext?.Session?.GetString("AdminId");
+    var isLoggedIn = maKh.HasValue || !string.IsNullOrEmpty(adminId);
+}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="NemeChuaShop - cửa hàng trực tuyến uy tín, chất lượng" />
+    <title>@ViewData["Title"] - NemeChuaShop</title>
+
+    <link href="https://tungkysie05.id.vn/image/app_icon.png" rel="icon" type="image/x-icon" />
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/app.extra.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@600&display=swap" rel="stylesheet">
+
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+    <style>
+        :root {
+            --primary-color: #ff6b35;
+            --background-color: #f6f7fb;
+            --text-color: #222;
+        }
+
+        body {
+            background: var(--background-color);
+            color: var(--text-color);
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        main.container {
+            padding-top: 24px;
+            padding-bottom: 48px;
+            flex: 1;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            letter-spacing: .4px;
+        }
+
+        .shop-title {
+            font-family: 'Pacifico', cursive;
+            font-size: 28px;
+            margin: 0;
+        }
+
+        .music-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .user-welcome {
+            font-size: 0.9rem;
+            color: #6c757d;
+            margin-right: 1rem;
+        }
+
+        .user-name {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        /* Đảm bảo font tiếng Việt hiển thị đúng */
+        .form-control, .btn, .alert {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Loading state */
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+    </style>
+
+    @RenderSection("Head", required: false)
+    @RenderSection("Styles", required: false)
+</head>
+<body>
+    <!-- Header -->
+    <partial name="_Header" />
+
+    <!-- Navbar -->
+    <partial name="_Navbar" />
+    <!-- Nội dung động -->
+    <main class="container py-4">
+        @RenderBody()
+    </main>
+
+    <!-- Footer -->
+    <partial name="_Footer" />
+
+    <!-- Anti-forgery token for Ajax -->
+    <form id="antiForgeryForm" style="display:none;">
+        @Html.AntiForgeryToken()
+    </form>
+
+    <!-- Scripts - SỬA THỨ TỰ QUAN TRỌNG -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Xóa hoặc comment các script bị lỗi 404 -->
+    <!-- <script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script> -->
+    <!-- <script src="~/js/site.app.js" asp-append-version="true"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Truyền dữ liệu từ C# sang JavaScript -->
+    @if (showWelcome)
+    {
+        <script>
+            window.showWelcomeMessage = true;
+            window.userHoTen = @Html.Raw(JsonSerializer.Serialize(hoTen));
+        </script>
+    }
+
+    <script>
+        // Global configuration
+        const CONFIG = {
+            primaryColor: '#ff6b35',
+            apiTimeout: 30000
+        };
+
+        // Safe JSON serialization for JavaScript
+        function safeJsonStringify(obj) {
+            try {
+                return JSON.stringify(obj);
+            } catch (e) {
+                console.error('JSON stringify error:', e);
+                return '""';
+            }
+        }
+
+        // Setup global Ajax configuration
+        (function () {
+            'use strict';
+
+            try {
+                const token = document.querySelector('#antiForgeryForm input[name="__RequestVerificationToken"]')?.value;
+                if (token) {
+                    $.ajaxSetup({
+                        headers: {
+                            'RequestVerificationToken': token
+                        },
+                        timeout: CONFIG.apiTimeout,
+                        xhrFields: {
+                            withCredentials: true
+                        }
+                    });
+                }
+            } catch (error) {
+                console.warn('Ajax setup token error:', error);
+            }
+
+            // Global error handler for Ajax
+            $(document).ajaxError(function (event, jqXHR, ajaxSettings, thrownError) {
+                console.error('Ajax request failed:', {
+                    url: ajaxSettings.url,
+                    status: jqXHR.status,
+                    error: thrownError
+                });
+            });
+        })();
+
+        // Show logout success message
+        (function () {
+            'use strict';
+
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('logout') === 'success') {
+                Swal.fire({
+                    title: 'Đăng xuất thành công!',
+                    text: 'Bạn đã đăng xuất khỏi hệ thống',
+                    icon: 'success',
+                    confirmButtonColor: CONFIG.primaryColor,
+                    timer: 1600,
+                    showConfirmButton: false,
+                    allowOutsideClick: false
+                });
+
+                // Remove query parameter without page reload
+                const url = new URL(window.location);
+                url.searchParams.delete('logout');
+                window.history.replaceState({}, document.title, url);
+            }
+        })();
+
+        // Show welcome message after login
+        (function () {
+            'use strict';
+
+            if (window.showWelcomeMessage && window.userHoTen) {
+                try {
+                    Swal.fire({
+                        title: 'Đăng nhập thành công!',
+                        html: 'Chào mừng <b>' + window.userHoTen + '</b> đến với<br/>NemeChuaShop',
+                        icon: 'success',
+                        confirmButtonColor: CONFIG.primaryColor,
+                        timer: 1800,
+                        showConfirmButton: false,
+                        allowOutsideClick: false
+                    });
+
+                    // Clear welcome message flag
+                    const token = document.querySelector('#antiForgeryForm input[name="__RequestVerificationToken"]')?.value;
+                    if (token) {
+                        fetch('/Account/HideWelcomeMessage', {
+                            method: 'POST',
+                            headers: {
+                                'RequestVerificationToken': token,
+                                'Content-Type': 'application/json'
+                            },
+                            credentials: 'same-origin'
+                        }).catch(error => {
+                            console.error('Failed to hide welcome message:', error);
+                        });
+                    }
+                } catch (error) {
+                    console.error('Welcome message error:', error);
+                }
+            }
+        })();
+
+        // Utility functions
+        function showLoading() {
+            document.body.classList.add('loading');
+        }
+
+        function hideLoading() {
+            document.body.classList.remove('loading');
+        }
+
+        // Global error handler
+        window.addEventListener('error', function (e) {
+            console.error('Global error:', e.error);
+        });
+
+        // Page load completion - SỬA LỖI ShopPage is not defined
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log('NemeChuaShop loaded successfully');
+            // Xóa dòng này nếu ShopPage không tồn tại:
+            // ShopPage.init();
+        });
+    </script>
+
+    <!-- THÊM WISHLIST SCRIPT VÀO ĐÂY -->
+    <script>
+        // Wishlist System - Simple and Effective
+        console.log('🔄 Loading wishlist system...');
+
+        $(document).ready(function() {
+            console.log('🚀 Initializing wishlist system...');
+            initializeWishlist();
+        });
+
+        function initializeWishlist() {
+            // Event delegation for all wishlist buttons
+            $(document).on('click', '.wishlist-btn', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                console.log('❤️ Wishlist button clicked');
+
+                const $btn = $(this);
+                const productId = $btn.data('product-id');
+
+                if (!productId) {
+                    console.error('❌ No product ID found');
+                    return;
+                }
+
+                // Show loading
+                const originalHtml = $btn.html();
+                $btn.html('<i class="bi bi-arrow-repeat spinner-border spinner-border-sm"></i>').prop('disabled', true);
+
+                // Get CSRF token
+                const token = $('input[name="__RequestVerificationToken"]').val();
+
+                if (!token) {
+                    console.error('❌ CSRF token not found');
+                    $btn.html(originalHtml).prop('disabled', false);
+                    showWishlistToast('error', 'Lỗi bảo mật');
+                    return;
+                }
+
+                // Call API
+                $.ajax({
+                    url: '/Wishlist/ToggleWishlist',
+                    type: 'POST',
+                    data: { productId: productId },
+                    headers: {
+                        'RequestVerificationToken': token
+                    },
+                    success: function(response) {
+                        console.log('✅ Wishlist response:', response);
+
+                        if (response.success) {
+                            // Update all buttons for this product
+                            updateWishlistButtons(productId, response.isWishlist);
+                            showWishlistToast('success', response.message);
+                        } else {
+                            showWishlistToast('error', response.message);
+                            if (response.message.includes('đăng nhập')) {
+                                setTimeout(() => {
+                                    window.location.href = '/Account/Login';
+                                }, 1500);
+                            }
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('❌ Wishlist AJAX error:', error);
+                        showWishlistToast('error', 'Lỗi kết nối server');
+                    },
+                    complete: function() {
+                        $btn.html(originalHtml).prop('disabled', false);
+                    }
+                });
+            });
+
+            console.log('✅ Wishlist system initialized');
+        }
+
+        function updateWishlistButtons(productId, isWishlist) {
+            const $allButtons = $(`.wishlist-btn[data-product-id="${productId}"]`);
+
+            $allButtons.each(function() {
+                const $btn = $(this);
+                const $icon = $btn.find('i');
+
+                if (isWishlist) {
+                    // Add to wishlist
+                    $btn.addClass('wishlist-active')
+                        .attr('title', 'Xóa khỏi yêu thích');
+                    $icon.removeClass('bi-heart')
+                         .addClass('bi-heart-fill')
+                         .css('color', '#dc3545');
+                } else {
+                    // Remove from wishlist
+                    $btn.removeClass('wishlist-active')
+                        .attr('title', 'Thêm vào yêu thích');
+                    $icon.removeClass('bi-heart-fill')
+                         .addClass('bi-heart')
+                         .css('color', '');
+                }
+            });
+        }
+
+        function showWishlistToast(icon, message) {
+            Swal.fire({
+                toast: true,
+                position: 'top-end',
+                icon: icon,
+                title: message,
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true
+            });
+        }
+
+        // Debug function
+        function debugWishlist() {
+            console.log('=== 🐞 WISHLIST DEBUG ===');
+            const buttons = $('.wishlist-btn');
+            console.log(`Total buttons: ${buttons.length}`);
+
+            buttons.each(function(index) {
+                const $btn = $(this);
+                console.log(`Button ${index}:`, {
+                    productId: $btn.data('product-id'),
+                    active: $btn.hasClass('wishlist-active'),
+                    title: $btn.attr('title')
+                });
+            });
+
+            const token = $('input[name="__RequestVerificationToken"]');
+            console.log('CSRF Token:', token.length ? '✅ Found' : '❌ Not found');
+        }
+
+        // Auto debug after 2 seconds
+        setTimeout(() => {
+            console.log('🔍 Running wishlist debug...');
+            debugWishlist();
+        }, 2000);
+    </script>
+
+    <!-- Debug button (temporary) -->
+    <button onclick="debugWishlist()" style="position:fixed; bottom:20px; right:20px; z-index:9999; background:#007bff; color:white; border:none; padding:10px; border-radius:5px; cursor:pointer; font-size:12px;">
+        🐞 Debug Wishlist
+    </button>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

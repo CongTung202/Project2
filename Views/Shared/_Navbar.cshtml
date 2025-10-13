@@ -1,0 +1,402 @@
+﻿<nav class="navbar navbar-expand-lg main-navbar shadow-sm">
+    <div class="container">
+        <!-- Logo -->
+        <a class="navbar-brand d-none d-lg-flex align-items-center me-4" asp-controller="Home" asp-action="Index">
+            <img src="https://tungkysie05.id.vn/image/app_icon.png" alt="Logo NemeChuaShop" height="70" class="rounded">
+        </a>
+
+        <!-- Navbar toggler -->
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Search + Nav items -->
+        <div class="collapse navbar-collapse" id="navbarMain">
+            <!-- Search ở giữa -->
+            <div class="d-flex my-3 my-lg-0 flex-grow-1 mx-lg-4 position-relative">
+                <div class="input-group search-container">
+                    <input id="searchInput" class="form-control search-input" type="search"
+                           placeholder="Tìm sản phẩm..." autocomplete="off">
+                    <button class="btn btn-orange search-btn" type="button" onclick="performSearch()">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </div>
+
+                <!-- Dropdown gợi ý tìm kiếm -->
+                <div id="searchSuggestions" class="search-suggestions dropdown-menu w-100" style="display: none;">
+                    <div class="suggestion-list" id="suggestionList">
+                        <!-- Gợi ý sẽ được thêm vào đây bằng JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Giỏ hàng + Tài khoản -->
+            <div class="d-flex align-items-center ms-lg-3">
+                <!-- Giữ nguyên phần giỏ hàng và tài khoản -->
+                <a href="/Wishlist/MyWishlist" class="btn btn-icon me-2">
+                    <i class="bi bi-heart"></i>
+                    <span class="cart-badge" id="cartCount">3</span>
+                </a>
+
+                @if (!string.IsNullOrEmpty(Context.Session.GetString("MaKh")) || !string.IsNullOrEmpty(Context.Session.GetString("AdminId")))
+                {
+                    <div class="dropdown">
+                        <a href="#" class="btn btn-icon dropdown-toggle" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-person-circle"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><span class="dropdown-item-text">Xin chào, <strong>@Context.Session.GetString("HoTen")</strong></span></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i>Tài khoản</a></li>
+
+                            @if (!string.IsNullOrEmpty(Context.Session.GetString("MaKh")))
+                            {
+                                <li><a class="dropdown-item" href="/Orders"><i class="bi bi-bag me-2"></i>Đơn hàng của tôi</a></li>
+                            }
+
+                            <li><a class="dropdown-item" href="/WishList/MyWishlist"><i class="bi bi-heart me-2"></i>Yêu thích</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <a class="dropdown-item" href="/Account/Logout">
+                                    <i class="bi bi-box-arrow-right me-2"></i>Đăng xuất
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                }
+                else
+                {
+                    <div class="dropdown">
+                        <a href="#" class="btn btn-icon dropdown-toggle" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-person-circle"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" asp-controller="Account" asp-action="Login"><i class="bi bi-box-arrow-in-right me-2"></i>Đăng nhập</a></li>
+                            <li><a class="dropdown-item" href="/Account/Register"><i class="bi bi-person-plus me-2"></i>Đăng ký</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/Wishlist/MyWishlist"><i class="bi bi-heart me-2"></i>Yêu thích</a></li>
+                            <li><a class="dropdown-item" href="/HoaDon/MyOrder"><i class="bi bi-clock-history me-2"></i>Lịch sử mua hàng</a></li>
+                        </ul>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</nav>
+
+<style>
+    .main-navbar {
+        background: rgba(255, 255, 255, 0.95) !important;
+        backdrop-filter: blur(10px);
+        padding: 0.5rem 0;
+    }
+
+    .search-container {
+        max-width: 500px;
+        margin: 0 auto;
+        position: relative;
+    }
+
+    .search-input {
+        border-radius: 50px 0 0 50px;
+        border: 2px solid #f0f0f0;
+        padding: 0.6rem 1.2rem;
+        transition: all 0.3s;
+    }
+
+        .search-input:focus {
+            border-color: #ff6b35;
+            box-shadow: 0 0 0 0.2rem rgba(255, 107, 53, 0.25);
+        }
+
+    .search-btn {
+        border-radius: 0 50px 50px 0;
+        background: #ff6b35;
+        border-color: #ff6b35;
+        color: white;
+        padding: 0.6rem 1rem;
+    }
+
+        .search-btn:hover {
+            background: #f7931e;
+            border-color: #f7931e;
+        }
+
+    .btn-icon {
+        position: relative;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        color: #555;
+        transition: all 0.3s;
+    }
+
+        .btn-icon:hover {
+            background: #f8f9fa;
+            color: #ff6b35;
+        }
+
+    .dropdown-menu {
+        border: none;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+        border-radius: 12px;
+        padding: 0.5rem;
+    }
+
+    .dropdown-item {
+        border-radius: 8px;
+        padding: 0.5rem 1rem;
+        transition: all 0.2s;
+    }
+
+        .dropdown-item:hover {
+            background-color: #fff4eb;
+            color: #ff6b35;
+        }
+
+    .dropdown-item-text {
+        color: #6c757d;
+        font-size: 0.9rem;
+    }
+
+    /* Search Suggestions Styles */
+    .search-suggestions {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 1000;
+        background: white;
+        border: 1px solid #e0e0e0;
+        border-radius: 0 0 12px 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        max-height: 400px;
+        overflow-y: auto;
+    }
+
+    .suggestion-item {
+        display: flex;
+        align-items: center;
+        padding: 0.75rem 1rem;
+        border-bottom: 1px solid #f5f5f5;
+        cursor: pointer;
+        transition: all 0.2s;
+        text-decoration: none;
+        color: inherit;
+    }
+
+        .suggestion-item:hover {
+            background-color: #fff8f5;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .suggestion-item:last-child {
+            border-bottom: none;
+        }
+
+        .suggestion-item img {
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-right: 1rem;
+        }
+
+    .suggestion-info {
+        flex: 1;
+    }
+
+    .suggestion-name {
+        font-weight: 500;
+        margin-bottom: 0.25rem;
+        color: #333;
+    }
+
+    .suggestion-price {
+        color: #ff6b35;
+        font-weight: 600;
+        font-size: 0.9rem;
+    }
+
+    .no-suggestions {
+        padding: 1rem;
+        text-align: center;
+        color: #6c757d;
+        font-style: italic;
+    }
+
+    .search-highlight {
+        background-color: #fff9c4;
+        padding: 0.1rem 0;
+        border-radius: 2px;
+    }
+
+    @@media (max-width: 991.98px) {
+        .search-container {
+            max-width: 100%;
+        }
+    }
+</style>
+
+<script>
+    // Biến toàn cục
+    let searchTimeout;
+    let currentSuggestions = [];
+
+    // Khởi tạo sự kiện tìm kiếm
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('searchInput');
+        const suggestionsContainer = document.getElementById('searchSuggestions');
+
+        // Sự kiện input với debounce
+        searchInput.addEventListener('input', function() {
+            clearTimeout(searchTimeout);
+            const searchTerm = this.value.trim();
+
+            if (searchTerm.length < 2) {
+                hideSuggestions();
+                return;
+            }
+
+            searchTimeout = setTimeout(() => {
+                fetchSearchSuggestions(searchTerm);
+            }, 300);
+        });
+
+        // Sự kiện focus
+        searchInput.addEventListener('focus', function() {
+            const searchTerm = this.value.trim();
+            if (searchTerm.length >= 2 && currentSuggestions.length > 0) {
+                showSuggestions();
+            }
+        });
+
+        // Sự kiện keydown
+        searchInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
+                hideSuggestions();
+            } else if (e.key === 'Escape') {
+                hideSuggestions();
+            }
+        });
+
+        // Click outside để ẩn suggestions
+        document.addEventListener('click', function(e) {
+            if (!searchInput.contains(e.target) && !suggestionsContainer.contains(e.target)) {
+                hideSuggestions();
+            }
+        });
+    });
+
+    // Hàm fetch gợi ý tìm kiếm
+    async function fetchSearchSuggestions(term) {
+        try {
+            const response = await fetch(`/Home/SearchSuggestions?term=${encodeURIComponent(term)}`);
+            const data = await response.json();
+
+            if (data.success) {
+                currentSuggestions = data.suggestions;
+                displaySuggestions(data.suggestions, term);
+            } else {
+                currentSuggestions = [];
+                displayNoSuggestions();
+            }
+        } catch (error) {
+            console.error('Error fetching search suggestions:', error);
+            displayNoSuggestions();
+        }
+    }
+
+    // Hiển thị gợi ý
+    function displaySuggestions(suggestions, searchTerm) {
+        const suggestionList = document.getElementById('suggestionList');
+
+        if (!suggestions || suggestions.length === 0) {
+            displayNoSuggestions();
+            return;
+        }
+
+        let html = '';
+
+        suggestions.forEach((suggestion, index) => {
+            const highlightedName = highlightText(suggestion.tenSp, searchTerm);
+            const price = formatPrice(suggestion.donGia);
+
+            html += `
+                <a href="/Home/Details/${suggestion.maSp}" class="suggestion-item">
+                    <img src="${suggestion.anhDaiDien || '/images/placeholder.jpg'}"
+                         alt="${suggestion.tenSp}"
+                         onerror="this.src='/images/placeholder.jpg'">
+                    <div class="suggestion-info">
+                        <div class="suggestion-name">${highlightedName}</div>
+                        <div class="suggestion-price">${price}</div>
+                    </div>
+                </a>
+            `;
+        });
+
+        suggestionList.innerHTML = html;
+        showSuggestions();
+    }
+
+    // Hiển thị khi không có gợi ý
+    function displayNoSuggestions() {
+        const suggestionList = document.getElementById('suggestionList');
+        suggestionList.innerHTML = '<div class="no-suggestions">Không tìm thấy sản phẩm phù hợp</div>';
+        showSuggestions();
+    }
+
+    // Highlight text tìm kiếm
+    function highlightText(text, searchTerm) {
+        if (!searchTerm) return text;
+
+        const regex = new RegExp(`(${searchTerm})`, 'gi');
+        return text.replace(regex, '<span class="search-highlight">$1</span>');
+    }
+
+    // Định dạng giá
+    function formatPrice(price) {
+        return new Intl.NumberFormat('vi-VN', {
+            style: 'currency',
+            currency: 'VND'
+        }).format(price);
+    }
+
+    // Hiển thị dropdown gợi ý
+    function showSuggestions() {
+        const suggestionsContainer = document.getElementById('searchSuggestions');
+        suggestionsContainer.style.display = 'block';
+    }
+
+    // Ẩn dropdown gợi ý
+    function hideSuggestions() {
+        const suggestionsContainer = document.getElementById('searchSuggestions');
+        suggestionsContainer.style.display = 'none';
+    }
+
+    // Thực hiện tìm kiếm
+    function performSearch() {
+        const searchTerm = document.getElementById('searchInput').value.trim();
+
+        if (searchTerm) {
+            // Chuyển hướng đến trang tìm kiếm
+            window.location.href = `/Home/Search?q=${encodeURIComponent(searchTerm)}`;
+        } else {
+            // Nếu không có từ khóa, quay lại trang chủ
+            window.location.href = '/Home/Index';
+        }
+
+        hideSuggestions();
+    }
+
+    // Thêm sự kiện Enter cho ô tìm kiếm
+    document.getElementById('searchInput').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            performSearch();
+        }
+    });
+</script>
